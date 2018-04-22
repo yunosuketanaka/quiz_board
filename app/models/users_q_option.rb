@@ -1,0 +1,2 @@
+class UsersQOption < ApplicationRecord
+end

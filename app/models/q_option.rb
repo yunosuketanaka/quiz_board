@@ -1,0 +1,2 @@
+class QOption < ApplicationRecord
+end
