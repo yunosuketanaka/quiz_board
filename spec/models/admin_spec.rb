@@ -51,4 +51,11 @@ RSpec.describe Admin, type: :model do
     expect(admin.errors[:password].size).to eq(1)
   end
 
+  # error if the password is not the same with pass_confim
+  it 'is invalid if the password is different from pass_confirm' do
+    admin = build(:admin, password_confirmation: "hoge")
+    admin.valid?
+    expect(admin.errors[:password_confirmation].size).to eq(1)
+  end
+
 end
