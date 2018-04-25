@@ -40,12 +40,14 @@ RSpec.describe Admin, type: :model do
   # error if the password is fewer than 6 letters
   it 'is invalid if password is smaller than 6 letters' do
     admin = build(:admin, password: 'hogge')
+    admin.valid?
     expect(admin.errors[:password].size).to eq(1)
   end
 
   # error if the password is longer than 14 letters
   it 'is invalid if password is longer than 14 letters' do
     admin = build(:admin, password: 'mogemogemogemog')
+    admin.valid?
     expect(admin.errors[:password].size).to eq(1)
   end
 
