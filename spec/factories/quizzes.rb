@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :quiz do
-    title 'hogehoge'
+    sequence(:title) { |n| " hogehoge #{n}" }
     description 'mogemoge & hogehoge'
   end
 end
