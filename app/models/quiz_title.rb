@@ -1,2 +1,0 @@
-class QuizTitle < ApplicationRecord
-end
