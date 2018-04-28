@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
-    resources :quiz
+    # resources :quiz
   end
 
-  scope module: :user do
-    resources :quiz
+  # scope module: :user do
+  namespace :user do
+    resources :quizzes
   end
 
   root 'quiz#index'
