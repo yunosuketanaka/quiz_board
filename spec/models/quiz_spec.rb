@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Quiz, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
   # valid if the title and description are both not nil
   it 'is valid if the title and description are both not nil' do
     expect(build(:quiz)).to be_valid
