@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
-    # resources :quiz
+    resources :quizzes
   end
 
   # scope module: :user do
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :quizzes
   end
 
-  root 'quiz#index'
+  root 'user/quizzes#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
