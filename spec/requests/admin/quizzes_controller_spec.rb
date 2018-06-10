@@ -25,7 +25,6 @@ RSpec.describe Admin::QuizzesController, type: :request do
       end
     end
 
-
     describe '#GET :show' do
 
       subject { get '/admin/quizzes/11' }
@@ -54,27 +53,117 @@ RSpec.describe Admin::QuizzesController, type: :request do
       subject { get '/admin/quizzes/11/edit' }
       let!(:each_quiz) { create(:quiz, id: quiz_id) }
       let(:quiz_id) { 11 }
-      before { subject }
+      let(:question) { create(:question, quiz_id: quiz_id) }
+      # before { subject }
 
       # @quiz にid:11のquizがはいっていることを確認する
       it 'assigns the selected quiz into @quiz' do
+        subject
         expect(assigns(:quiz)).to eq each_quiz
       end
 
       # response code is 200
       it 'is matching code 200' do
+        subject
         expect(response.status).to eq 200
       end
 
       # editをrenderすること
       it 'renders edit.html' do
+        subject
         expect(response).to render_template :edit
       end
 
       # 紐づいたquestionsもひっぱってくる→クリック可能に
       it 'assgins the questions in the selected quiz' do
-        questions = create(:question, quiz_id: quiz_id)
-        expect(assigns(questions)).to eq questions
+        # questions = create(:question, quiz_id: quiz_id)
+        question
+        subject
+        expect(assigns(:questions)).to eq [question]
+      end
+    end
+
+    describe '#DESTROY :delete' do
+
+      let(:quiz) { create(:quiz, id: 11 ) }
+      subject(:deleting) { delete '/admin/quizzes/11' }
+
+      # deletes the data
+      it 'deletes the data successfully' do
+        quiz
+        # binding.pry
+        expect { deleting }.to change(Quiz, :count).by(-1)
+        # binding.pry
+      end
+
+      # redirects to the :index
+      it 'redirects to the :index page' do
+        quiz
+        subject
+        expect(response).to redirect_to '/admin/quizzes'
+      end
+    end
+
+
+    describe '#GET :new' do
+      let(:quiz) { build(:quiz) }
+      subject { get '/admin/quizzes/new' }
+
+      # renders form_new
+      it 'puts quiz data into quiz' do
+        quiz
+        subject
+        expect(quiz).to eq quiz
+      end
+
+      #リクエストが成功する
+      it 'succeeds request' do
+        subject
+        expect(response.status).to eq 200
+      end
+    end
+
+    describe '#POST create' do
+      subject(:creating) { post '/admin/quizzes', params: set_quiz }
+      # @quiz1 = { quiz2: attributes_for(:quiz) }
+      let(:set_quiz) { {quiz: attributes_for(:quiz)} } # 外側はlet付属の{}で、内側はquiz => 〜〜であるという、ハッシュ形式の記述方法
+
+      context 'if @quiz is saved successfully' do
+        # @params = attributes_for(:quiz)
+        # リクエスト成功
+        it 'succeeds in requesting' do
+          # set_quiz
+          subject
+          expect(response.status).to eq 201
+        end
+        # 保存がうまくいく
+        it 'succeeds in saving' do
+          # quiz1
+          # set_quiz
+          expect{creating}.to change(Quiz, :count).by(+1)
+        end
+        # renderで問題新規作成画面に飛ばす
+        it 'renders the next questions creating page' do
+          # set_quiz
+          # quiz1
+          subject
+          expect(response).to redirect_to 'admin/quizzes/questions/new'
+        end
+      end
+
+      context 'if @quiz is not saved correctly' do
+        # @quizは保存されない
+        it 'doesnt save the data' do
+          subject
+          expect{response}.to raise_error
+        end
+
+        # newをもういちどrenderする
+        it 'renders new' do
+          subject
+          expect(response).to render_template :new
+        end
+
       end
     end
 end
