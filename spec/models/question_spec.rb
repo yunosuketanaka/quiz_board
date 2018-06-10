@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
     # id is unique
-    it 'is invalid if id is not unique' do
+    it 'is invalid if title is not unique' do
       create(:question, title: "same")
       question = build(:question, title: "same")
       question.valid?
