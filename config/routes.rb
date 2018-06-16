@@ -9,14 +9,13 @@ Rails.application.routes.draw do
   # scope module: :user do
   namespace :user do
     resources :quizzes do
-      resources :questions, :only => [:index, :show] do
-        member  do
-          get 'result'
-          post 'create_answer'
-        end
-      end
+      resources :questions, :only => [:index, :show]
     end
+    resources :quiz_result, :only => :show
+    resources :trials, :only => :create
   end
+
+
 
   root 'user/quizzes#index'
 
