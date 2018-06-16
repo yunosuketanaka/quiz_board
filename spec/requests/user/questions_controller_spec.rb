@@ -1,10 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe User::QuestionsController, type: :request do
+
+    include ControllerMacros
+    
+    let(:user) { create(:user) }
+
     describe '#GET :index' do
 
-      subject(:game_start) { get '/user/quizzes/1/questions' }  # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
-      before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
+      subject(:game_start) { get '/user/quizzes/1/questions' }
+
+      before do
+        binding.pry
+        login_user user
+
+        # controller_macros.rb内のlogin_userメソッドを呼び出し
+      end
+      before { subject }
 
       context 'if UsersQuiz does not exist' do
         it 'creates new users_quizzes data' do

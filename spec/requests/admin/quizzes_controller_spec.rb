@@ -132,6 +132,7 @@ RSpec.describe Admin::QuizzesController, type: :request do
         # @params = attributes_for(:quiz)
         # リクエスト成功
         it 'succeeds in requesting' do
+          binding.pry
           # set_quiz
           subject
           expect(response.status).to eq 201

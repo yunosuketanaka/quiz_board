@@ -13,10 +13,8 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def create
-    binding.pry
-    quiz_params
-    binding.pry
-    Quiz.create(@new_quiz)
+    # Quiz.create(@new_quiz)
+    Quiz.create(quiz_params)
   end
 
   def edit
@@ -35,8 +33,7 @@ class Admin::QuizzesController < ApplicationController
 
   private
     def quiz_params
-      @new_quiz = params.require(params[:quiz]).permit(:title, :description)
+      binding.pry
+      params.require(:quiz).permit(:title, :description)
     end
-
-
 end
