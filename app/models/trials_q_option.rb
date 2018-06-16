@@ -1,0 +1,2 @@
+class TrialsQOption < ApplicationRecord
+end

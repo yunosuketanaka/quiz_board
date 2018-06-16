@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User::QuestionsController, type: :request do
 
     include ControllerMacros
-    
+
     let(:user) { create(:user) }
 
     describe '#GET :index' do
@@ -63,7 +63,7 @@ RSpec.describe User::QuestionsController, type: :request do
     describe '#POST :create' do
       subject(:save_answer) { post 'urllllllllllllllllllllllllllllllllll'}
 
-      it 'creates users_q_option successfully' do
+      it 'creates trials_q_option successfully' do
 
       end
 
