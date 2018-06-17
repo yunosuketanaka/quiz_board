@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe User::QuizzesController, type: :request do
+RSpec.describe Users::QuizzesController, type: :request do
 
 
     describe '#GET :index' do
 
-      subject(:quizzes) { get '/user/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
+      subject(:quizzes) { get '/users/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
       before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
 
       # @quizzesにquizを全て入れること
@@ -28,7 +28,7 @@ RSpec.describe User::QuizzesController, type: :request do
 
     describe '#GET :show' do
 
-      subject { get '/user/quizzes/11' }
+      subject { get '/UsersQuiz/quizzes/11' }
       let!(:each_quiz) { create(:quiz, id: 11)}
       before { subject }
 

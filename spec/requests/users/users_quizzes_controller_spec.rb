@@ -1,6 +1,6 @@
 'rails_helper'
 
-describe User::UsersQuizzesController, type: :request do
+describe Users::UsersQuizzesController, type: :request do
 
   describe '#POST :create' do
 
