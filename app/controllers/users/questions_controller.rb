@@ -1,6 +1,6 @@
 require 'date'
 
-class User::QuestionsController < ApplicationController
+class Users::QuestionsController < ApplicationController
 
 before_action :get_user_id
 
@@ -23,7 +23,7 @@ before_action :get_user_id
   end
 
   def show
-  end 
+  end
 
 
 
