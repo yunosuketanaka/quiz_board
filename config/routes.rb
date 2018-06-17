@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
     resources :quiz_result, :only => :show
     resources :trials, :only => :create
+    resources :users_quizzes, :only => :create
   end
 
 

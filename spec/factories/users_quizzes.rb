@@ -5,6 +5,15 @@ FactoryBot.define do
     user_id 1
     quiz_id 1
 
+    association :user,
+      factory: :user,
+      strategy: :build
+
+    association :quiz,
+      factory: :quiz,
+      strategy: :build
+
+
   end
 
 end
