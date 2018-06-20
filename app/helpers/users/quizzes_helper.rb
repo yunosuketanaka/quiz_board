@@ -1,2 +1,2 @@
-module User::QuizzesHelper
+module Users::QuizzesHelper
 end
