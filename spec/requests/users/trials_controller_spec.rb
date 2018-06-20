@@ -1,6 +1,9 @@
-'rails_helper'
 
-describe Users::TrialsController, type: :request do
+require 'rails_helper'
+
+RSpec.describe Users::TrialsController, type: :request do
+
+  include ControllerMacros
 
   describe '#POST :create' do
     context 'if users_quizzes does not exist' do
