@@ -2,17 +2,19 @@ require 'rails_helper'
 
 RSpec.describe User::QuestionsController, type: :request do
 
-    include ControllerMacros
+    # include ControllerMacros
 
     let(:user) { create(:user) }
 
     describe '#GET :index' do
 
-      subject(:game_start) { get '/user/quizzes/1/questions' }
+      subject(:game_start) { get '/users/quizzes/1/questions' }
 
       before do
         binding.pry
-        login_user user
+        # login_user user
+        login_as(user)
+        binding.pry
 
         # controller_macros.rb内のlogin_userメソッドを呼び出し
       end
@@ -37,13 +39,13 @@ RSpec.describe User::QuestionsController, type: :request do
       end
 
       it 'transfers to the first question' do
-        expect(response).to redirect_to '/user/quizzes/1/questions/1'
+        expect(response).to redirect_to '/users/quizzes/1/questions/1'
       end
 
     end
 
     describe '#GET :show' do
-      subject(:each_question) { get '/user/quizzes/1/questions/1'}
+      subject(:each_question) { get '/users/quizzes/1/questions/1'}
       before { subject }
 
       it 'gets a question and puts it into @question' do

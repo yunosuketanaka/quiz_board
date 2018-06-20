@@ -18,7 +18,7 @@ before_action :get_user_id
 
 
     @first_question = Question.where(quiz_id: @quiz_id).first
-    redirect_to "user/quizzes/#{@quiz_id}/questions/#{@firstequestion}" #pathの指定の仕方、これではダメな気がする
+    redirect_to "users/quizzes/#{@quiz_id}/questions/#{@firstequestion}" #pathの指定の仕方、これではダメな気がする
 
   end
 

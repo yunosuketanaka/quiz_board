@@ -8,6 +8,5 @@ module ControllerMacros
     controller.stub(:authenticate_user!).and_return true
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
-    binding.pry
   end
 end
