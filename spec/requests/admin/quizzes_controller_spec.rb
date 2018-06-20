@@ -3,27 +3,27 @@ require 'rails_helper'
 RSpec.describe Admin::QuizzesController, type: :request do
 
 
-    describe '#GET :index' do
-
-      subject(:quizzes) { get '/admin/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
-      before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
-
-      # @quizzesにquizを全て入れること
-      it 'assigns the all quizzes into @quizzes' do
-        quiz = create(:quiz) # createした際、同じデータをquizに入れておく。
-        expect(assigns(:quizzes)).to eq [quiz]     # @quizzes(=:quizzes)にはいっているもの(assigns(:quizzes))がquiz（1行前に定義。createしたものと同じもの）と一致することを期待
-      end
-
-      # response code matches with 200
-      it 'matches the response code with 200' do
-        expect(response.status).to eq 200
-      end
-
-      # indexをrenderすること
-      it 'renders the index.html after all' do
-        expect(response).to render_template :index
-      end
-    end
+    # describe '#GET :index' do
+    #
+    #   subject(:quizzes) { get '/admin/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
+    #   before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
+    #
+    #   # @quizzesにquizを全て入れること
+    #   it 'assigns the all quizzes into @quizzes' do
+    #     quiz = create(:quiz) # createした際、同じデータをquizに入れておく。
+    #     expect(assigns(:quizzes)).to eq [quiz]     # @quizzes(=:quizzes)にはいっているもの(assigns(:quizzes))がquiz（1行前に定義。createしたものと同じもの）と一致することを期待
+    #   end
+    #
+    #   # response code matches with 200
+    #   it 'matches the response code with 200' do
+    #     expect(response.status).to eq 200
+    #   end
+    #
+    #   # indexをrenderすること
+    #   it 'renders the index.html after all' do
+    #     expect(response).to render_template :index
+    #   end
+    # end
 
     describe '#GET :show' do
 
@@ -126,12 +126,14 @@ RSpec.describe Admin::QuizzesController, type: :request do
     describe '#POST create' do
       subject(:creating) { post '/admin/quizzes', params: set_quiz }
       # @quiz1 = { quiz2: attributes_for(:quiz) }
-      let(:set_quiz) { {quiz: attributes_for(:quiz)} } # 外側はlet付属の{}で、内側はquiz => 〜〜であるという、ハッシュ形式の記述方法
+
 
       context 'if @quiz is saved successfully' do
+            let(:set_quiz) { {quiz: attributes_for(:quiz)} } # 外側はlet付属の{}で、内側はquiz => 〜〜であるという、ハッシュ形式の記述方法
         # @params = attributes_for(:quiz)
         # リクエスト成功
         it 'succeeds in requesting' do
+          # binding.pry
           # set_quiz
           subject
           expect(response.status).to eq 201
@@ -152,9 +154,11 @@ RSpec.describe Admin::QuizzesController, type: :request do
       end
 
       context 'if @quiz is not saved correctly' do
+        let(:set_quiz) { {quiz: attributes_for(:quiz, title: nil)} }
         # @quizは保存されない
         it 'doesnt save the data' do
           subject
+          binding.pry
           expect{response}.to raise_error
         end
 

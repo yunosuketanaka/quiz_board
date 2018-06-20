@@ -1,6 +1,6 @@
 require 'date'
 
-class User::QuestionsController < ApplicationController
+class Users::QuestionsController < ApplicationController
 
 before_action :get_user_id
 
@@ -18,15 +18,18 @@ before_action :get_user_id
 
 
     @first_question = Question.where(quiz_id: @quiz_id).first
-    redirect_to "user/quizzes/#{@quiz_id}/questions/#{@first_question}" #pathの指定の仕方、これではダメな気がする
+    redirect_to "users/quizzes/#{@quiz_id}/questions/#{@firstequestion}" #pathの指定の仕方、これではダメな気がする
 
   end
 
+  def show
+  end
 
 
 
   private
     def get_user_id
+      binding.pry
       @user_id = current_user.id
     end
 

@@ -3,7 +3,7 @@ module RSpec
     # Provides configuration options for rspec-mocks.
     class Configuration
       def initialize
-        @allow_message_expectations_on_nil = nil
+        @allow_message_expectations_on_nil = true 
         @yield_receiver_to_any_instance_implementation_blocks = true
         @verify_doubled_constant_names = false
         @transfer_nested_constants = false
