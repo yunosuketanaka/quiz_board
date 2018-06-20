@@ -2,45 +2,44 @@ require 'rails_helper'
 
 RSpec.describe Users::QuestionsController, type: :request do
 
-    include ControllerMacros
+    # include ControllerMacros
 
     let(:user) { create(:user) }
 
-    # describe '#GET :index' do
-    #
-    #   subject(:game_start) { get '/users/quizzes/1/questions' }
-    #
-    #   before do
-    #     binding.pry
-    #     login_user user
-    #
-    #     # controller_macros.rb内のlogin_userメソッドを呼び出し
-    #   end
-    #   before { subject }
-    #
-    #   context 'if UsersQuiz does not exist' do
-    #     it 'creates new users_quizzes data' do
-    #       expect{game_start}.to change(UsersQuiz, :count).by(1)
-    #     end
-    #   end
-    #
-    #   context 'if UsersQuiz does already exist' do
-    #     # do nothing
-    #   end
-    #
-    #   it 'creates new trial data' do
-    #     expect(game_start).to change(Trial, :count).by(1)
-    #   end
-    #
-    #   it 'chooses the first question in the quiz' do
-    #     expect(assigns(first_question).id).to eq 1 #こんなかんじでidを引っ張ってこれるのか？
-    #   end
-    #
-    #   it 'transfers to the first question' do
-    #     expect(response).to redirect_to '/users/quizzes/1/questions/1'
-    #   end
-    #
-    # end
+    describe '#GET :index' do
+
+      subject(:game_start) { get '/users/quizzes/1/questions' }
+
+      before do
+        binding.pry
+        login_as(user)
+        # controller_macros.rb内のlogin_userメソッドを呼び出し
+      end
+      before { subject }
+
+      context 'if UsersQuiz does not exist' do
+        it 'creates new users_quizzes data' do
+          expect{game_start}.to change(UsersQuiz, :count).by(1)
+        end
+      end
+
+      context 'if UsersQuiz does already exist' do
+        # do nothing
+      end
+
+      it 'creates new trial data' do
+        expect(game_start).to change(Trial, :count).by(1)
+      end
+
+      it 'chooses the first question in the quiz' do
+        expect(assigns(first_question).id).to eq 1 #こんなかんじでidを引っ張ってこれるのか？
+      end
+
+      it 'transfers to the first question' do
+        expect(response).to redirect_to '/users/quizzes/1/questions/1'
+      end
+
+    end
 
     describe '#GET :show' do
       subject(:each_question) { get '/users/quizzes/1/questions/1'}
