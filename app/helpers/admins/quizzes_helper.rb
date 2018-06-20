@@ -1,2 +1,2 @@
-module Admin::QuizzesHelper
+module Admins::QuizzesHelper
 end
