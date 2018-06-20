@@ -13,6 +13,7 @@ RSpec.describe Users::QuestionsController, type: :request do
       before do
         binding.pry
         login_as(user)
+        binding.pry
         # controller_macros.rb内のlogin_userメソッドを呼び出し
       end
       before { subject }
@@ -23,41 +24,41 @@ RSpec.describe Users::QuestionsController, type: :request do
         end
       end
 
-      context 'if UsersQuiz does already exist' do
-        # do nothing
-      end
-
-      it 'creates new trial data' do
-        expect(game_start).to change(Trial, :count).by(1)
-      end
-
-      it 'chooses the first question in the quiz' do
-        expect(assigns(first_question).id).to eq 1 #こんなかんじでidを引っ張ってこれるのか？
-      end
-
-      it 'transfers to the first question' do
-        expect(response).to redirect_to '/users/quizzes/1/questions/1'
-      end
-
-    end
-
-    describe '#GET :show' do
-      subject(:each_question) { get '/users/quizzes/1/questions/1'}
-      before { subject }
-
-      it 'gets a question and puts it into @question' do
-
-      end
-
-      it 'gets 4 q_options and puts them into @q_options' do
-
-      end
-
-      it 'renders the view page' do
-
-      end
+      # context 'if UsersQuiz does already exist' do
+      #   # do nothing
+      # end
+      #
+      # it 'creates new trial data' do
+      #   expect(game_start).to change(Trial, :count).by(1)
+      # end
+      #
+      # it 'chooses the first question in the quiz' do
+      #   expect(assigns(first_question).id).to eq 1 #こんなかんじでidを引っ張ってこれるのか？
+      # end
+      #
+      # it 'transfers to the first question' do
+      #   expect(response).to redirect_to '/users/quizzes/1/questions/1'
+      # end
 
     end
+
+    # describe '#GET :show' do
+    #   subject(:each_question) { get '/users/quizzes/1/questions/1'}
+    #   before { subject }
+    #
+    #   it 'gets a question and puts it into @question' do
+    #
+    #   end
+    #
+    #   it 'gets 4 q_options and puts them into @q_options' do
+    #
+    #   end
+    #
+    #   it 'renders the view page' do
+    #
+    #   end
+    #
+    # end
 
     describe '#POST :create' do
       subject(:save_answer) { post 'urllllllllllllllllllllllllllllllllll'}

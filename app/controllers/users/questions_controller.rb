@@ -1,15 +1,10 @@
 require 'date'
 
-
 class Users::QuestionsController < ApplicationController
 
-before_action :get_user_id
-
-
   def index
-    get_quiz_id
-    @users_quizzes = UsersQuiz.where(quiz_id: @quiz_id)
-    @user_quiz  = @users_quizzes.find_by(user_id: @user_id)
+    @users_quizzes = UsersQuiz.where(quiz_id: get_quiz_id)
+    @user_quiz  = @users_quizzes.find_by(user_id: get_user_id)
 
     if @user_quiz = nil then
       @user_quiz = UsersQuiz.new(user_id: @user_id, quiz_id: @quiz_id)
@@ -24,7 +19,6 @@ before_action :get_user_id
   end
 
   def show
-
   end
 
 
@@ -32,11 +26,11 @@ before_action :get_user_id
   private
     def get_user_id
       binding.pry
-      @user_id = current_user.id
+      current_user.id
     end
 
     def get_quiz_id
-      @quiz_id = params[:quiz_id]
+      params[:quiz_id]
     end
 
     def get_question_id
