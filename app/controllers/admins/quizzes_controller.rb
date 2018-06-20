@@ -1,4 +1,4 @@
-class Admin::QuizzesController < ApplicationController
+class Admins::QuizzesController < ApplicationController
 
   def index
     @quizzes = Quiz.all
@@ -13,10 +13,14 @@ class Admin::QuizzesController < ApplicationController
   end
 
   def create
-    binding.pry
-    quiz_params
-    binding.pry
-    Quiz.create(@new_quiz)
+    # Quiz.create(@new_quiz)
+    @new_quiz = Quiz.new(quiz_params)
+
+    if @new_quiz.save
+      redirect_to 'admins/quizzes/questions/new'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -29,14 +33,13 @@ class Admin::QuizzesController < ApplicationController
   def destroy
     @quiz = Quiz.find(params[:id])
     @quiz.destroy
-    redirect_to admin_quizzes_path
+    redirect_to admins_quizzes_path
     # render :index
   end
 
   private
     def quiz_params
-      @new_quiz = params.require(params[:quiz]).permit(:title, :description)
+      # binding.pry
+      params.require(:quiz).permit(:title, :description)
     end
-
-
 end

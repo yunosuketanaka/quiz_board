@@ -1,27 +1,49 @@
 require 'rails_helper'
 
-RSpec.describe User::QuestionsController, type: :request do
+RSpec.describe Users::QuestionsController, type: :request do
 
+    include ControllerMacros
 
-    describe '#GET :index' do
+    let(:user) { create(:user) }
 
-      subject(:game_start) { get '/user/quiz/:quiz_id/questions' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
-      before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
-
-      it 'creates new users_quizzes data if not exist' do
-      end
-
-      it 'creates new trial data' do
-      end
-
-      it 'transfers to the first question' do
-
-      end
-
-    end
+    # describe '#GET :index' do
+    #
+    #   subject(:game_start) { get '/users/quizzes/1/questions' }
+    #
+    #   before do
+    #     binding.pry
+    #     login_user user
+    #
+    #     # controller_macros.rb内のlogin_userメソッドを呼び出し
+    #   end
+    #   before { subject }
+    #
+    #   context 'if UsersQuiz does not exist' do
+    #     it 'creates new users_quizzes data' do
+    #       expect{game_start}.to change(UsersQuiz, :count).by(1)
+    #     end
+    #   end
+    #
+    #   context 'if UsersQuiz does already exist' do
+    #     # do nothing
+    #   end
+    #
+    #   it 'creates new trial data' do
+    #     expect(game_start).to change(Trial, :count).by(1)
+    #   end
+    #
+    #   it 'chooses the first question in the quiz' do
+    #     expect(assigns(first_question).id).to eq 1 #こんなかんじでidを引っ張ってこれるのか？
+    #   end
+    #
+    #   it 'transfers to the first question' do
+    #     expect(response).to redirect_to '/users/quizzes/1/questions/1'
+    #   end
+    #
+    # end
 
     describe '#GET :show' do
-      subject(:each_question) { get '/user/quiz/:quiz_id/question/:id'}
+      subject(:each_question) { get '/users/quizzes/1/questions/1'}
       before { subject }
 
       it 'gets a question and puts it into @question' do
@@ -41,7 +63,7 @@ RSpec.describe User::QuestionsController, type: :request do
     describe '#POST :create' do
       subject(:save_answer) { post 'urllllllllllllllllllllllllllllllllll'}
 
-      it 'creates users_q_option successfully' do
+      it 'creates trials_q_option successfully' do
 
       end
 
@@ -70,8 +92,6 @@ RSpec.describe User::QuestionsController, type: :request do
     describe '#GET :result' do
       subject(:show_result) { get 'urlllllllllllllllllllllllllllllllllllllllll'}
 
-
-
       it 'selects the users_q_options the user answered this time' do
       end
 
@@ -81,10 +101,11 @@ RSpec.describe User::QuestionsController, type: :request do
       it 'selects the score' do
       end
 
-      it 'calculates the whole score average'
+      it 'calculates the whole score average' do
       end
 
     end
+end
     #
     #   it 'assigns the all quizzes into @quizzes' do
     #     quiz = create(:quiz) # createした際、同じデータをquizに入れておく。
@@ -118,11 +139,9 @@ RSpec.describe User::QuestionsController, type: :request do
     #   it 'is matching code 200' do
     #     expect(response.status).to eq 200
     #   end
-    # 
+    #
     #   # indexをrenderすること
     #   it 'renders show.html' do
     #     expect(response).to render_template :show
     #   end
     # end
-
-end

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Admin::QuizzesController, type: :request do
+RSpec.describe Admins::QuizzesController, type: :request do
 
 
     describe '#GET :index' do
 
-      subject(:quizzes) { get '/admin/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
+      subject(:quizzes) { get '/admins/quizzes' } # :quizzesという名前のついた、httpリクエスト + url。 subject(:quizzes)とするたびに　get '/user/quizzes' がurlとして呼ばれる。
       before { subject } # 全部のexampleの前でsubjectをしてください、という意味。つまり、全てのexampleのまえで get '/user/quizzes'を呼び出してくださいという指示。 subjectであることの有用性を生かしていない気がしている。
 
       # @quizzesにquizを全て入れること
@@ -27,7 +27,7 @@ RSpec.describe Admin::QuizzesController, type: :request do
 
     describe '#GET :show' do
 
-      subject { get '/admin/quizzes/11' }
+      subject { get '/admins/quizzes/11' }
       let!(:each_quiz) { create(:quiz, id: 11)}
       before { subject }
 
@@ -50,7 +50,7 @@ RSpec.describe Admin::QuizzesController, type: :request do
 
     describe '#GET :edit' do
 
-      subject { get '/admin/quizzes/11/edit' }
+      subject { get '/admins/quizzes/11/edit' }
       let!(:each_quiz) { create(:quiz, id: quiz_id) }
       let(:quiz_id) { 11 }
       let(:question) { create(:question, quiz_id: quiz_id) }
@@ -86,7 +86,7 @@ RSpec.describe Admin::QuizzesController, type: :request do
     describe '#DESTROY :delete' do
 
       let(:quiz) { create(:quiz, id: 11 ) }
-      subject(:deleting) { delete '/admin/quizzes/11' }
+      subject(:deleting) { delete '/admins/quizzes/11' }
 
       # deletes the data
       it 'deletes the data successfully' do
@@ -100,14 +100,14 @@ RSpec.describe Admin::QuizzesController, type: :request do
       it 'redirects to the :index page' do
         quiz
         subject
-        expect(response).to redirect_to '/admin/quizzes'
+        expect(response).to redirect_to '/admins/quizzes'
       end
     end
 
 
     describe '#GET :new' do
       let(:quiz) { build(:quiz) }
-      subject { get '/admin/quizzes/new' }
+      subject { get '/admins/quizzes/new' }
 
       # renders form_new
       it 'puts quiz data into quiz' do
@@ -124,14 +124,16 @@ RSpec.describe Admin::QuizzesController, type: :request do
     end
 
     describe '#POST create' do
-      subject(:creating) { post '/admin/quizzes', params: set_quiz }
+      subject(:creating) { post '/admins/quizzes', params: set_quiz }
       # @quiz1 = { quiz2: attributes_for(:quiz) }
-      let(:set_quiz) { {quiz: attributes_for(:quiz)} } # 外側はlet付属の{}で、内側はquiz => 〜〜であるという、ハッシュ形式の記述方法
+
 
       context 'if @quiz is saved successfully' do
+            let(:set_quiz) { {quiz: attributes_for(:quiz)} } # 外側はlet付属の{}で、内側はquiz => 〜〜であるという、ハッシュ形式の記述方法
         # @params = attributes_for(:quiz)
         # リクエスト成功
         it 'succeeds in requesting' do
+          # binding.pry
           # set_quiz
           subject
           expect(response.status).to eq 201
@@ -147,14 +149,16 @@ RSpec.describe Admin::QuizzesController, type: :request do
           # set_quiz
           # quiz1
           subject
-          expect(response).to redirect_to 'admin/quizzes/questions/new'
+          expect(response).to redirect_to 'admins/quizzes/questions/new'
         end
       end
 
       context 'if @quiz is not saved correctly' do
+        let(:set_quiz) { {quiz: attributes_for(:quiz, title: nil)} }
         # @quizは保存されない
         it 'doesnt save the data' do
           subject
+          binding.pry
           expect{response}.to raise_error
         end
 

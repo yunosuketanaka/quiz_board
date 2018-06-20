@@ -2,14 +2,21 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :users
 
-  namespace :admin do
+  namespace :admins do
     resources :quizzes
   end
 
   # scope module: :user do
-  namespace :user do
-    resources :quizzes
+  namespace :users do
+    resources :quizzes do
+      resources :questions, :only => [:index, :show]
+    end
+    resources :quiz_result, :only => :show
+    resources :trials, :only => :create
+    resources :users_quizzes, :only => :create
   end
+
+
 
   root 'user/quizzes#index'
 
