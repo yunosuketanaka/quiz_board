@@ -11,7 +11,7 @@ RSpec.describe Users::QuestionsController, type: :request do
       subject(:game_start) { get '/users/quizzes/1/questions' }
 
       before do
-        binding.pry
+        # binding.pry
         login_as(user)
         # controller_macros.rb内のlogin_userメソッドを呼び出し
       end
@@ -41,23 +41,54 @@ RSpec.describe Users::QuestionsController, type: :request do
 
     end
 
+
+
     describe '#GET :show' do
-      subject(:each_question) { get '/users/quizzes/1/questions/1'}
-      before { subject }
 
-      it 'gets a question and puts it into @question' do
+      let(:a_question) { create(:question) }
+      let(:q_option) { create(:q_option)}
 
+      context 'if user successfully created trial table' do
+        subject(:question) { get '/users/quizzes/1/questions/1'}
+        before { subject }
+        # context 'if the question is 10th' do
+        #   it 'renders the result page' do
+        #
+        #   end
+        #
+        # end
+
+        # context 'if the question is not the 10th one ' do
+        it 'gets a question and puts it into @question' do
+          a_question
+          expect(assgins(question).id).to eq 1
+        end
+        it 'gets 4 q_options and puts them into @q_options' do
+          4.times {
+             q_option
+          }
+          q_options.each do |q_option|
+            expect()
+          expect(assigns(q_options).id).to
+        end
+        # it 'renders the view page' do
+        #   expect
+        # end
       end
 
-      it 'gets 4 q_options and puts them into @q_options' do
+      # end
 
-      end
-
-      it 'renders the view page' do
-
+      context 'if user didnt create trial table' do
+        subject(:question) { get '/users/quizzes/1000000/questions/1'}
+        before { subject }
+        it 'renders index' do
+          expect(response).to redirect_to 'users/quizzes/1/questions'
+        end
       end
 
     end
+
+
 
     describe '#POST :create' do
       subject(:save_answer) { post 'urllllllllllllllllllllllllllllllllll'}
@@ -91,7 +122,7 @@ RSpec.describe Users::QuestionsController, type: :request do
     describe '#GET :result' do
       subject(:show_result) { get 'urlllllllllllllllllllllllllllllllllllllllll'}
 
-      it 'selects the users_q_options the user answered this time' do
+      it 'selects the trials_q_options the user answered this time' do
       end
 
       it 'selects the questions related to the q_options' do
@@ -100,7 +131,7 @@ RSpec.describe Users::QuestionsController, type: :request do
       it 'selects the score' do
       end
 
-      it 'calculates the whole score average' do
+      it 'calculates the whole score average in a country' do
       end
 
     end
