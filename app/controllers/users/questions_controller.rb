@@ -37,6 +37,9 @@ class Users::QuestionsController < ApplicationController
 
   end
 
+  def create
+    
+  end
 
 
   private
