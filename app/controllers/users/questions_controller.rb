@@ -32,6 +32,8 @@ class Users::QuestionsController < ApplicationController
       return
     end
 
+    
+
 
 
 
