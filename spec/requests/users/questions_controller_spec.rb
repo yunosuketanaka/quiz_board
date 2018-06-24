@@ -123,11 +123,26 @@ RSpec.describe Users::QuestionsController, type: :request do
 
     describe '#GET :result' do
       subject(:show_result) { get 'urlllllllllllllllllllllllllllllllllllllllll'}
+      let(:q_option) { create(:q_option) }
+      let(:trials_q_option) { create(:trials_q_option) }
 
       it 'selects the trials_q_options the user answered this time' do
+        40.times do
+          q_options
+        end
+
+        10.times do
+          trials_q_option
+        end
+
+
+        assigns(q_options).each do |q_option|
+          expect(assgins(q_option).id).to eq 
+        end
       end
 
       it 'selects the questions related to the q_options' do
+
       end
 
       it 'selects the score' do
