@@ -64,12 +64,12 @@ RSpec.describe Users::QuestionsController, type: :request do
           expect(assgins(question).id).to eq 1
         end
         it 'gets 4 q_options and puts them into @q_options' do
-          4.times {
-             q_option
-          }
-          q_options.each do |q_option|
-            expect()
-          expect(assigns(q_options).id).to
+          # 4.times {
+          #    q_option
+          # }
+          # q_options.each do |q_option|
+          #   expect()
+          # expect(assigns(q_options).id).to
         end
         # it 'renders the view page' do
         #   expect
@@ -91,30 +91,32 @@ RSpec.describe Users::QuestionsController, type: :request do
 
 
     describe '#POST :create' do
-      subject(:save_answer) { post 'urllllllllllllllllllllllllllllllllll'}
+      subject(:save_answer) { post '/users/quizzes/1/questions/1'}
+      let(:trial) { create(:trial) }
 
       it 'creates trials_q_option successfully' do
-
+        expect{save_answer}.to change(TrialsQOption, :count).by(1)
       end
 
       context 'if it was the last question' do
 
         it 'renders the result page' do
-
+          expect{save_answer}.to redirect_to '/users/quiz_result/1'
+          end
         end
 
         it 'updates the trial on the ended_at' do
-
+          expect(assgins(trial).ended_at).to_not eq nil
         end
 
         it 'calculates and updates the trial on score ' do
-
+          expect(assgins(trial).score).to_not eq nil
         end
       end
 
       context 'if it is not the last question' do
         it 'renders the next question page' do
-
+          expect{save_answer}.to redirect_to '/users/quizzes/1/questions/2'
         end
       end
     end

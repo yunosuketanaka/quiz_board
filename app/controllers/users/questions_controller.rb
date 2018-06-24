@@ -32,8 +32,8 @@ class Users::QuestionsController < ApplicationController
       return
     end
 
-
-
+    # ここに次のquestionを引っ張ってくる（でも、どうやって？）
+    # ここにq_optionを引っ張ってくる
 
   end
 
