@@ -32,13 +32,14 @@ class Users::QuestionsController < ApplicationController
       return
     end
 
-    # ここに次のquestionを引っ張ってくる（でも、どうやって？）
+    # ここにquestionを引っ張ってくる
+
     # ここにq_optionを引っ張ってくる
 
   end
 
   def create
-    
+    @next = Question.where(quiz_id: get_quiz_id, and )
   end
 
 
