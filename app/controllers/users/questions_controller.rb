@@ -21,26 +21,22 @@ class Users::QuestionsController < ApplicationController
   def show
     @users_quizzes = UsersQuiz.where(quiz_id: get_quiz_id)
     @user_quiz  = @users_quizzes.find_by(user_id: get_user_id)
-    if @user_quiz = nil then
-      redirect_to "users/quizzes/questions"
-      return
-    end
+    return redirect_to "users/quizzes/questions" if @user_quiz = nil
+
     @user_quiz_id = @user_quiz.id
     @trial = Trial.find(user_quiz_id: @user_quiz_id)
-    if @trial = nil then
-      redirect_to "users/quizzes/questions"
-      return
-    end
+    return redirect_to "users/quizzes/questions" if @trial = nil
 
-    # ここにquestionを引っ張ってくる
-
-    # ここにq_optionを引っ張ってくる
-
+    # ここに今のquestionを引っ張ってくる
+    @question = Question.find(id: get_question_id)
+    # ここに今のq_optionを引っ張ってくる
+    @q_options = QOption.where(question_id: get_question_id)
   end
 
-  def create
-    @next = Question.where(quiz_id: get_quiz_id, and )
-  end
+  # def create
+  #   TrialsQOption.new()
+  #   @next = Question.where(quiz_id: get_quiz_id, and )
+  # end
 
 
   private
@@ -54,7 +50,7 @@ class Users::QuestionsController < ApplicationController
     end
 
     def get_question_id
-      @question_id = params[:id]
+      params[:id]
     end
 
 end

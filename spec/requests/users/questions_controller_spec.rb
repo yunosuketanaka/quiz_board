@@ -90,36 +90,36 @@ RSpec.describe Users::QuestionsController, type: :request do
 
 
 
-    describe '#POST :create' do
-      subject(:save_answer) { post '/users/quizzes/1/questions/1'}
-      let(:trial) { create(:trial) }
-
-      it 'creates trials_q_option successfully' do
-        expect{save_answer}.to change(TrialsQOption, :count).by(1)
-      end
-
-      context 'if it was the last question' do
-
-        it 'renders the result page' do
-          expect{save_answer}.to redirect_to '/users/quiz_result/1'
-          end
-        end
-
-        it 'updates the trial on the ended_at' do
-          expect(assgins(trial).ended_at).to_not eq nil
-        end
-
-        it 'calculates and updates the trial on score ' do
-          expect(assgins(trial).score).to_not eq nil
-        end
-      end
-
-      context 'if it is not the last question' do
-        it 'renders the next question page' do
-          expect{save_answer}.to redirect_to '/users/quizzes/1/questions/2'
-        end
-      end
-    end
+    # describe '#POST :create' do
+    #   subject(:save_answer) { post '/users/quizzes/1/questions/1'}
+    #   let(:trial) { create(:trial) }
+    #
+    #   it 'creates trials_q_option successfully' do
+    #     expect{save_answer}.to change(TrialsQOption, :count).by(1)
+    #   end
+    #
+    #   context 'if it was the last question' do
+    #
+    #     it 'renders the result page' do
+    #       expect{save_answer}.to redirect_to '/users/quiz_result/1'
+    #       end
+    #     end
+    #
+    #     it 'updates the trial on the ended_at' do
+    #       expect(assgins(trial).ended_at).to_not eq nil
+    #     end
+    #
+    #     it 'calculates and updates the trial on score ' do
+    #       expect(assgins(trial).score).to_not eq nil
+    #     end
+    #   end
+    #
+    #   context 'if it is not the last question' do
+    #     it 'renders the next question page' do
+    #       expect{save_answer}.to redirect_to '/users/quizzes/1/questions/2'
+    #     end
+    #   end
+    # end
 
     describe '#GET :result' do
       subject(:show_result) { get 'urlllllllllllllllllllllllllllllllllllllllll'}
