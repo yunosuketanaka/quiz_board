@@ -46,37 +46,22 @@ RSpec.describe Users::QuestionsController, type: :request do
     describe '#GET :show' do
 
       let(:a_question) { create(:question) }
-      let(:q_option) { create(:q_option)}
+      let(:q_option) { create_list(:q_option, 4)}
 
       context 'if user successfully created trial table' do
         subject(:question) { get '/users/quizzes/1/questions/1'}
         before { subject }
-        # context 'if the question is 10th' do
-        #   it 'renders the result page' do
-        #
-        #   end
-        #
-        # end
 
-        # context 'if the question is not the 10th one ' do
         it 'gets a question and puts it into @question' do
           a_question
-          expect(assgins(question).id).to eq 1
+          expect(assgins(question).id).to eq a_question
         end
-        it 'gets 4 q_options and puts them into @q_options' do
-          4.times {
-             q_option
-          }
-          q_options.each do |q_option|
-            expect()
-          expect(assigns(q_options).id).to
-        end
-        # it 'renders the view page' do
-        #   expect
-        # end
-      end
 
-      # end
+        it 'gets 4 q_options and puts them into @q_options' do
+          q_option
+          expect(assigns(q_options).id).to eq q_option
+        end
+      end
 
       context 'if user didnt create trial table' do
         subject(:question) { get '/users/quizzes/1000000/questions/1'}
