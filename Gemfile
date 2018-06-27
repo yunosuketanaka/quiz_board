@@ -63,6 +63,8 @@ group :test do
   gem 'launchy'
 end
 
+gem 'fincop', git: 'git@github.com:FiNCDeveloper/fincop.git'
+
 gem 'devise'
 gem 'rails-controller-testing'
 
