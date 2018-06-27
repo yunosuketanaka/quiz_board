@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       resources :questions, :only => [:index, :show]
     end
     resources :quiz_result, :only => :show
-    resources :trials, :only => :create
     resources :users_quizzes, :only => :create
+    resources :q_options do 
+      resources :trials_q_options, :only => :create
+    end
   end
 
 
